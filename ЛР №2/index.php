@@ -1,13 +1,16 @@
 <?php
 date_default_timezone_set('Europe/Moscow');
 
-$start_value = 5;      
-$count = 15;            
-$step = 2;              
-$type = 'D';             
+// 1. ИНИЦИАЛИЗАЦИЯ ПЕРЕМЕННЫХ
 
-$min_limit = null;       
-$max_limit = null;
+$start_value = 5;      // начальное значение аргумента
+$count = 15;             // количество вычисляемых значений
+$step = 2;               // шаг изменения аргумента
+$type = 'D';             // тип верстки: 'A', 'B', 'C', 'D', 'E'
+
+// Ограничения по значениям функции (если null — не используются)
+$min_limit = null;       // минимальное значение (остановка при меньшем)
+$max_limit = null;       // максимальное значение (остановка при большем)
 
 
 // 2. ФУНКЦИЯ ДЛЯ ВАРИАНТА 4
@@ -35,32 +38,37 @@ function calculate_f($x) {
     }
 }
 
+// 3. ВЫЧИСЛЕНИЕ ЗНАЧЕНИЙ
 
-$results = [];       
-$sum = 0;           
-$valid_count = 0;    
-$min_val = null;     
-$max_val = null;    
+
+$results = [];       // массив результатов ['x' => x, 'fx' => f(x)]
+$sum = 0;            // сумма значений (только числовые)
+$valid_count = 0;    // количество корректных значений
+$min_val = null;     // минимальное значение
+$max_val = null;     // максимальное значение
 
 $x = $start_value;
 
 for ($i = 0; $i < $count; $i++) {
     $fx = calculate_f($x);
     
+    // Округляем до 3 знаков, если число
     if (is_numeric($fx)) {
         $fx = round($fx, 3);
     }
     
-    // Проверка на остановку по min/max
+    // Проверка на остановку по min/max (только для числовых значений)
     if (is_numeric($fx)) {
         if (($min_limit !== null && $fx < $min_limit) || 
             ($max_limit !== null && $fx > $max_limit)) {
-            break; 
+            break;  // прекращаем вычисления
         }
     }
     
+    // Сохраняем результат
     $results[] = ['x' => $x, 'fx' => $fx];
     
+    // Считаем статистику только для числовых значений
     if (is_numeric($fx)) {
         $sum += $fx;
         $valid_count++;
@@ -76,15 +84,17 @@ for ($i = 0; $i < $count; $i++) {
     $x += $step;
 }
 
+// Среднее арифметическое
 $average = ($valid_count > 0) ? $sum / $valid_count : null;
 if ($average !== null) {
     $average = round($average, 3);
 }
 
 
+// 4. ВЫВОД В ЗАВИСИМОСТИ ОТ ТИПА ВЁРСТКИ
 
 
-$output_html = ''; 
+$output_html = '';  // накопим вывод
 
 switch ($type) {
     case 'A':
@@ -129,7 +139,7 @@ switch ($type) {
         break;
         
     case 'E':
-        // Блочная верстка
+        // Блочная верстка (горизонтально, с красной рамкой)
         $output_html .= "<div class='block-container'>\n";
         foreach ($results as $row) {
             $output_html .= "<div class='block'>f({$row['x']}) = {$row['fx']}</div>\n";
@@ -142,6 +152,7 @@ switch ($type) {
         break;
 }
 
+// 5. СТАТИСТИКА
 
 $stats_html = '';
 if ($valid_count > 0) {
