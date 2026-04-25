@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* ===== HEADER ===== */
+header {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+header img {
+    width: 50px;
+    height: auto;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+header span {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* ===== MAIN ===== */
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+/* ===== КОНТЕЙНЕРЫ ===== */
+.form-container,
+.result-container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    background: white;
+    padding: 35px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #2c3e50;
+    display: inline-block;
+}
+
+h2, h3 {
+    color: #2c3e50;
+    margin: 20px 0 15px 0;
+}
+
+/* ===== ТАБЛИЦА ВВОДА ===== */
+.array-input-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+#elements-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+#elements-table td {
+    padding: 8px;
+}
+
+.element-index {
+    width: 50px;
+    text-align: center;
+    font-weight: bold;
+    color: #2c3e50;
+    background: #e9ecef;
+    border-radius: 8px;
+}
+
+.element-input input {
+    width: 100%;
+    padding: 10px;
+    border: 1.5px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.element-input input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ===== КНОПКИ ===== */
+.btn {
+    border: none;
+    border-radius: 40px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-add {
+    background: #28a745;
+    color: white;
+    padding: 10px 24px;
+}
+
+.btn-add:hover {
+    background: #218838;
+    transform: translateY(-2px);
+}
+
+.btn-sort {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+}
+
+.btn-sort:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-back {
+    background: #6c757d;
+    color: white;
+    padding: 10px 24px;
+}
+
+.btn-back:hover {
+    background: #5a6268;
+}
+
+/* ===== РАДИО КНОПКИ ===== */
+.algorithm-section {
+    margin-bottom: 25px;
+}
+
+.algorithm-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.radio-label:hover {
+    background: #e9ecef;
+}
+
+.radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* ===== БЛОК РЕЗУЛЬТАТОВ ===== */
+.algorithm-info {
+    margin-bottom: 20px;
+}
+
+.input-data {
+    background: #e9ecef;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.input-element {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin: 5px;
+    font-size: 0.85rem;
+}
+
+.validation-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.validation-failed {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 12px;
+    margin: 15px 0;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/* ===== ВИЗУАЛИЗАЦИЯ СОРТИРОВКИ ===== */
+.sorting-process {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 16px;
+    margin: 20px 0;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.iteration {
+    background: white;
+    border-left: 3px solid #667eea;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.iteration-num {
+    font-weight: bold;
+    color: #667eea;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.array-state {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.array-element {
+    background: #e9ecef;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: monospace;
+}
+
+.array-state.final .array-element {
+    background: #28a745;
+    color: white;
+}
+
+.completion-message {
+    background: #d4edda;
+    color: #155724;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.final-result {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background: linear-gradient(135deg, #2c3e50 0%, #1a252f 100%);
+    color: #bdc3c7;
+    text-align: center;
+    padding: 12px;
+    font-size: 0.8rem;
+    margin-top: auto;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 700px) {
+    .form-container, .result-container {
+        padding: 20px;
+    }
+    
+    .algorithm-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .array-state {
+        flex-direction: column;
+    }
+}
+
+/* ===== ПЕЧАТЬ ===== */
+@media print {
+    header, footer, .btn, .back-link, .btn-back {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+    }
+    
+    .form-container, .result-container {
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    .iteration {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
