@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #003366;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h2 {
+    margin-bottom: 5px;
+}
+
+header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+main {
+    flex: 1;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+h1 {
+    color: #003366;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #003366;
+    padding-bottom: 10px;
+}
+
+h3 {
+    color: #003366;
+    margin: 20px 0 15px 0;
+}
+
+/* Форма */
+.form-container, .result-container {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #003366;
+}
+
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #003366;
+}
+
+.submit-btn {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.submit-btn:hover {
+    background-color: #0055aa;
+    transform: scale(1.02);
+}
+
+.form-buttons {
+    text-align: center;
+}
+
+/* Исходный текст */
+.source-text {
+    margin-bottom: 30px;
+}
+
+.original-text {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
+    font-style: italic;
+    color: #2c3e50;
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    border-left: 4px solid #003366;
+}
+
+/* Таблицы */
+.analysis-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background-color: white;
+}
+
+.analysis-table th, .analysis-table td {
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: left;
+}
+
+.analysis-table th {
+    background-color: #003366;
+    color: white;
+    font-weight: bold;
+}
+
+.analysis-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Ошибка */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 18px;
+    border-left: 4px solid #f5c6cb;
+}
+
+/* Кнопка "Другой анализ" */
+.another-analysis {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.another-btn {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.another-btn:hover {
+    background-color: #218838;
+}
+
+/* Подвал */
+footer {
+    background-color: #333;
+    color: #ccc;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    margin-top: auto;
+}
