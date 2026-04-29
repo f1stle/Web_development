@@ -1,10 +1,7 @@
 <?php
-// Получаем текст из формы
 $text = isset($_POST['text']) ? $_POST['text'] : '';
 $text = trim($text);
 
-// Функция для перекодировки из UTF-8 в CP1251 для анализа (чтобы правильно работали strlen и т.д.)
-// и обратно для вывода
 function toCp1251($str) {
     return iconv("UTF-8", "Windows-1251//IGNORE", $str);
 }
@@ -13,10 +10,9 @@ function toUtf8($str) {
     return iconv("Windows-1251", "UTF-8//IGNORE", $str);
 }
 
-// Функция для проверки, является ли символ буквой (русской или английской)
+// Функция для проверки, является ли символ буквой
 function isLetter($char) {
-    // Русские буквы в CP1251: А-Я = 192-223, а-п = 224-239, р-я = 240-255
-    // Английские буквы: A-Z = 65-90, a-z = 97-122
+
     $code = ord($char);
     
     // Русские буквы
@@ -43,9 +39,8 @@ function isUpperCase($char) {
 function isLowerCase($char) {
     $code = ord($char);
     
-    // Русские строчные (а-я)
     if ($code >= 224 && $code <= 255) return true;
-    // Английские строчные (a-z)
+
     if ($code >= 97 && $code <= 122) return true;
     
     return false;
@@ -62,7 +57,7 @@ function isDigit($char) {
     return ($char >= '0' && $char <= '9');
 }
 
-// Функция для подсчёта вхождений символов (без учёта регистра)
+// Функция для подсчёта вхождений символов
 function countCharacters($text_cp) {
     $chars = array();
     $len = strlen($text_cp);
@@ -70,19 +65,18 @@ function countCharacters($text_cp) {
     for ($i = 0; $i < $len; $i++) {
         $char = $text_cp[$i];
         
-        // Пропускаем пробелы и знаки переноса строки
         if ($char == ' ' || $char == "\n" || $char == "\r" || $char == "\t") {
             continue;
         }
         
         // Приводим к нижнему регистру для подсчёта без учёта регистра
         if (isLetter($char)) {
-            // Для русских букв в CP1251: заглавные (192-223) -> строчные (224-255)
+
             $code = ord($char);
             if ($code >= 192 && $code <= 223) {
                 $char = chr($code + 32);
             }
-            // Для английских букв
+
             elseif ($code >= 65 && $code <= 90) {
                 $char = chr($code + 32);
             }
@@ -95,7 +89,6 @@ function countCharacters($text_cp) {
         }
     }
     
-    // Сортируем по ключам (символам)
     ksort($chars);
     
     return $chars;
@@ -110,10 +103,8 @@ function countWords($text_cp) {
     for ($i = 0; $i <= $len; $i++) {
         $char = ($i < $len) ? $text_cp[$i] : ' ';
         
-        // Разделители слов: пробел, знаки препинания, конец строки
         if ($char == ' ' || $char == "\n" || $char == "\r" || $char == "\t" || isPunctuation($char) || $i == $len) {
             if ($current_word !== '') {
-                // Приводим слово к нижнему регистру
                 $word_lower = '';
                 $word_len = strlen($current_word);
                 for ($j = 0; $j < $word_len; $j++) {
@@ -140,7 +131,6 @@ function countWords($text_cp) {
         }
     }
     
-    // Сортируем по ключам (словам) в алфавитном порядке
     ksort($words);
     
     return $words;
@@ -150,7 +140,6 @@ function countWords($text_cp) {
 function analyzeText($text_utf8) {
     $result = array();
     
-    // Перекодируем в CP1251 для анализа
     $text_cp = toCp1251($text_utf8);
     
     if (empty($text_cp)) {
@@ -159,10 +148,10 @@ function analyzeText($text_utf8) {
     
     $len = strlen($text_cp);
     
-    // 1. Количество символов (включая пробелы)
+    // Количество символов
     $result['total_chars'] = $len;
     
-    // 2. Количество букв, строчных и заглавных
+    // Количество букв, строчных и заглавных
     $result['total_letters'] = 0;
     $result['total_uppercase'] = 0;
     $result['total_lowercase'] = 0;
@@ -186,18 +175,17 @@ function analyzeText($text_utf8) {
         }
     }
     
-    // 3. Количество слов
+    // Количество слов
     $words = countWords($text_cp);
     $result['total_words'] = array_sum($words);
     $result['words_list'] = $words;
     
-    // 4. Количество вхождений символов
+    // Количество вхождений символов
     $result['char_counts'] = countCharacters($text_cp);
     
     return $result;
 }
 
-// Получаем результаты анализа
 $analysis = analyzeText($text);
 $has_text = !empty($text) && $analysis !== null;
 ?>
@@ -225,7 +213,6 @@ $has_text = !empty($text) && $analysis !== null;
                 ❌ Нет текста для анализа
             </div>
         <?php else: ?>
-            <!-- Исходный текст -->
             <div class="source-text">
                 <h3>Исходный текст:</h3>
                 <div class="original-text">
@@ -233,7 +220,6 @@ $has_text = !empty($text) && $analysis !== null;
                 </div>
             </div>
             
-            <!-- Информация о тексте в виде таблицы -->
             <div class="info-table">
                 <h3>Информация о тексте:</h3>
                 <table class="analysis-table" border="1">
@@ -272,7 +258,6 @@ $has_text = !empty($text) && $analysis !== null;
                 </table>
             </div>
             
-            <!-- Количество вхождений символов -->
             <?php if (!empty($analysis['char_counts'])): ?>
                 <div class="char-counts">
                     <h3>Количество вхождений каждого символа (без учёта регистра):</h3>
@@ -293,7 +278,6 @@ $has_text = !empty($text) && $analysis !== null;
                 </div>
             <?php endif; ?>
             
-            <!-- Список слов с количеством вхождений -->
             <?php if (!empty($analysis['words_list'])): ?>
                 <div class="word-counts">
                     <h3>Список слов и количество их вхождений (отсортировано по алфавиту):</h3>
